@@ -11,6 +11,7 @@ const { default: mongoose } = require("mongoose");
 const PATH_TO_UPLOADS = path.join(__dirname, "/assets/uploads");
 
 const app = express();
+const port = process.env.PORT || 4000;
 
 app.use(express.json());
 app.use(cookieParser());

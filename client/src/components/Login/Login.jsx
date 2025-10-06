@@ -14,10 +14,22 @@ function Login() {
         ev.preventDefault();
 
         const data = { email, password };
-        // console.log("d", data)
-        await api.login(data);
-        navigate("/account");
-        setUser(data);
+        const response = await api.login(data);
+        
+        if (response && response.ok) {
+            const userData = await response.json();
+            console.log('Login successful, user data:', userData);
+            setUser(userData);
+            navigate("/account");
+        } else {
+            // Fetch user data after successful login
+            const userData = await api.getUser();
+            if (userData) {
+                console.log('Fetched user data after login:', userData);
+                setUser(userData);
+                navigate("/account");
+            }
+        }
     };
 
     useEffect(() => {

@@ -7,6 +7,11 @@ import { BiSearchAlt2 } from "react-icons/bi";
 import { AiOutlineHome } from "react-icons/ai";
 import { UserContext } from "../../context/userContext";
 
+const URL_TO_UPLOADS = 
+    process.env.NODE_ENV === "development"
+        ? "http://localhost:5001/uploads/"
+        : "https://WanderStay-clone-64cu.onrender.com/uploads/";
+
 function Navbar() {
     const { user } = useContext(UserContext);
 
@@ -43,10 +48,23 @@ function Navbar() {
                     <Link
                         to={user ? "/account" : "/login"}
                         aria-label="User"
-                        className="flex gap-3 border rounded-3xl py-2 px-5 shadow-md shadow-gray-100"
+                        className="flex gap-3 items-center border rounded-3xl py-2 px-5 shadow-md shadow-gray-100 hover:shadow-lg transition-all"
                     >
                         <RxHamburgerMenu size={24} />
-                        <FaRegUserCircle size={24} />
+                        {user && user.profilePhoto ? (
+                            <img 
+                                src={URL_TO_UPLOADS + user.profilePhoto}
+                                alt={user.name}
+                                className="w-8 h-8 rounded-full object-cover border-2 border-primary"
+                            />
+                        ) : (
+                            <FaRegUserCircle size={24} />
+                        )}
+                        {user && (
+                            <span className="hidden md:inline text-sm font-medium">
+                                {user.name}
+                            </span>
+                        )}
                     </Link>
                 </div>
             </div>

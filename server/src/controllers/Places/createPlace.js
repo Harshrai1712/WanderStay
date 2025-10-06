@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const createPlace = async (req, res, next) => {
     try {
         const { token } = req.cookies;
-
+        
         const {
             title,
             address,
@@ -22,6 +22,7 @@ const createPlace = async (req, res, next) => {
             throw new Error("Authorization token not found.");
         }
 
+        
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
         const userId = decodedToken.id;
 

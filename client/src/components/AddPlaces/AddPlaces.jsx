@@ -183,7 +183,7 @@ function AddPlaces() {
                         <div className="mt-2">
                             <p>Check In</p>
                             <input
-                                type="text"
+                                type="time"
                                 placeholder="13:00"
                                 className="border"
                                 value={checkIn}
@@ -193,7 +193,7 @@ function AddPlaces() {
                         <div className="mt-2">
                             <p>Check Out</p>
                             <input
-                                type="text"
+                                type="time"
                                 placeholder="10:00"
                                 className="border"
                                 value={checkOut}

@@ -19,7 +19,6 @@ const uploadPhotoFromDevice = async (req, res, next) => {
             const filename = path.basename(newPath);
             uploadedFiles.push(filename);
         }
-        console.log('Uploaded files:', uploadedFiles);
         res.json(uploadedFiles);
     } catch (error) {
         console.error('Upload error:', error);

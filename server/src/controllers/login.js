@@ -19,11 +19,15 @@ const loginUser = async (req, res, next) => {
                     {},
                     (err, token) => {
                         if (err) throw err;
+                        
+                        const { name, email, _id, profilePhoto } = user;
+                        console.log('Login successful:', { name, email, id: _id, profilePhoto });
+                        
                         res.cookie("token", token, {
                             httpOnly: true,
                             secure: true,
                             sameSite: "None",
-                        }).json(user);
+                        }).json({ name, email, id: _id, profilePhoto });
                     }
                 );
             } else {

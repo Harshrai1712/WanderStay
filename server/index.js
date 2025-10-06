@@ -13,15 +13,23 @@ const PATH_TO_UPLOADS = path.join(__dirname, "/assets/uploads");
 const app = express();
 const port = process.env.PORT || 4000;
 
+
+
 app.use(express.json());
 app.use(cookieParser());
 app.use("/uploads", express.static(PATH_TO_UPLOADS));
 
-// CORS for localhost only
+// =================================================================
+// === THIS IS THE SECTION THAT HAS BEEN UPDATED ===
+// It now allows both your local machine and your deployed frontend
 app.use(cors({
-    origin: "http://127.0.0.1:5173",
-    credentials: true   
-}))
+    origin: [
+        'http://127.0.0.1:5173', 
+        'https://wanderstay-frontend-l8f6.onrender.com' // Your frontend URL
+    ],
+    credentials: true
+}));
+// =================================================================
 
 mongoose.connect(process.env.MONGO_URL)
     .then(() => {

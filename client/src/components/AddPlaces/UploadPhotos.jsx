@@ -20,25 +20,29 @@ function UploadPhotos({ uploadPhotos, setUploadPhotos }) {
         ev.preventDefault();
 
         const response = await api.uploadPhotoFromLink(uploadPhotoByLink);
-        setUploadPhotos((prev) => [...prev, response]);
+        console.log('Upload from link response:', response);
+        if (response) {
+            setUploadPhotos((prev) => [...prev, response]);
+        }
         setUploadPhotoByLink("");
     }
 
     async function uploadFromDevice(ev) {
-        const files = ev.target.files;
+        const files = Array.from(ev.target.files);
         const data = new FormData();
-
         for (let i = 0; i < files.length; i++) {
             data.append("photos", files[i]);
         }
         try {
             const response = await api.uploadPhotoFromDevice(data);
-
-            setUploadPhotos((prev) => {
-                return [...prev, ...response];
-            });
+            console.log('Upload from device response:', response);
+            if (response && Array.isArray(response)) {
+                setUploadPhotos((prev) => {
+                    return [...prev, ...response];
+                });
+            }
         } catch (error) {
-            console.log(error);
+            console.log('Upload error:', error);
         }
     }
 

@@ -4,6 +4,7 @@ import { PiPaperPlane } from "react-icons/pi";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { FaRegUserCircle } from "react-icons/fa";
 import { BiSearchAlt2 } from "react-icons/bi";
+import { AiOutlineHome } from "react-icons/ai";
 import { UserContext } from "../../context/userContext";
 
 function Navbar() {
@@ -28,14 +29,26 @@ function Navbar() {
                     </div>
                 </div>
                 {/* third section */}
-                <Link
-                    to={user ? "/account" : "/login"}
-                    aria-label="User"
-                    className="flex gap-3 border rounded-3xl py-2 px-5 shadow-md shadow-gray-100"
-                >
-                    <RxHamburgerMenu size={24} />
-                    <FaRegUserCircle size={24} />
-                </Link>
+                <div className="flex items-center gap-3">
+                    {user && (
+                        <Link
+                            to={"/"}
+                            aria-label="Home"
+                            className="flex items-center gap-2 border rounded-3xl py-2 px-4 shadow-md shadow-gray-100 hover:shadow-lg transition-shadow"
+                        >
+                            <AiOutlineHome size={20} />
+                            <span className="hidden sm:inline">Home</span>
+                        </Link>
+                    )}
+                    <Link
+                        to={user ? "/account" : "/login"}
+                        aria-label="User"
+                        className="flex gap-3 border rounded-3xl py-2 px-5 shadow-md shadow-gray-100"
+                    >
+                        <RxHamburgerMenu size={24} />
+                        <FaRegUserCircle size={24} />
+                    </Link>
+                </div>
             </div>
         </div>
     );

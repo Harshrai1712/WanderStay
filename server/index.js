@@ -17,22 +17,10 @@ app.use(cookieParser());
 app.use("/uploads", express.static(PATH_TO_UPLOADS));
 
 // CORS for localhost only
-app.use(
-    cors({
-        credentials: true,
-        origin: (origin, callback) => {
-            if (
-                !origin ||
-                origin.startsWith("http://127.0.0.1:") ||
-                origin.startsWith("http://localhost:")
-            ) {
-                callback(null, true);
-            } else {
-                callback(new Error("Not allowed by CORS"));
-            }
-        }
-    })
-);
+app.use(cors({
+    origin: "http://127.0.0.1:5173",
+    credentials: true   
+}))
 
 mongoose.connect(process.env.MONGO_URL)
     .then(() => {

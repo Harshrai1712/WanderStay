@@ -14,6 +14,7 @@ function Login() {
         ev.preventDefault();
 
         const data = { email, password };
+        // console.log("d", data)
         await api.login(data);
         navigate("/account");
         setUser(data);

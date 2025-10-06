@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 
 const createUser = async (req, res, next) => {
     try {
-        const { name, email, password } = req.body;
+        const { name, email, password, profilePhoto } = req.body;
 
         if (!name || !email || !password) {
             throw new Error("Username, email or password are missing");
@@ -22,6 +22,7 @@ const createUser = async (req, res, next) => {
             name,
             email,
             password: hashedPassword,
+            profilePhoto: profilePhoto || "",
         });
 
         await newUser.save();

@@ -52,6 +52,27 @@ export async function getUser() {
     }
 }
 
+export async function updateProfile(data) {
+    try {
+        const response = await fetch(`${URL}/profile`, {
+            method: "PUT",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+
+        return response.json();
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export async function logout() {
     try {
         await fetch(`${URL}/logout`, {

@@ -18,8 +18,9 @@ const getUser = async (req, res, next) => {
                 throw new Error(404, "User not found.");
             }
 
-            const { name, email, id } = userData;
-            res.json({ name, email, id });
+            const { name, email, id, profilePhoto } = userData;
+            console.log('getUser - User data:', { name, email, id, profilePhoto });
+            res.json({ name, email, id, profilePhoto });
         } else {
             res.json(null);
         }

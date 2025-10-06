@@ -5,6 +5,7 @@ const createUser = require("../controllers/register");
 const loginUser = require("../controllers/login");
 const getUser = require("../controllers/getUser");
 const logout = require("../controllers/logout");
+const updateProfile = require("../controllers/updateProfile");
 const uploadByLink = require('../controllers/uploadByLink');
 const uploadPhotoFromDevice = require("../controllers/uploadFromDevice");
 const createPlace = require("../controllers/Places/createPlace");
@@ -28,6 +29,7 @@ const router = Router();
 router.post("/register", createUser);
 router.post("/login", loginUser);
 router.get("/profile", getUser);
+router.put("/profile", updateProfile);
 router.get("/logout", logout);
 router.post("/upload-by-link", uploadByLink);
 router.post(

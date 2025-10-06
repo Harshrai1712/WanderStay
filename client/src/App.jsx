@@ -12,7 +12,7 @@ import PlacePage from "./components/Places/PlacePage";
 import BookingPlces from "./components/Booking/BookingPlces";
 import BookedPlace from "./components/Booking/BookedPlace";
 
-axios.defaults.baseURL = "http://127.0.0.1:5001";
+axios.defaults.baseURL = "https://wanderstay-backend-ll12.onrender.com";
 axios.defaults.withCredentials = true;
 
 function App() {

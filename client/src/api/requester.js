@@ -91,9 +91,14 @@ export async function uploadPhotoFromLink(data) {
             body: JSON.stringify({ link: data }),
         });
 
+        if (!response.ok) {
+            throw new Error(`Upload failed: ${response.status} ${response.statusText}`);
+        }
+
         return response.json();
     } catch (error) {
-        console.log(error);
+        console.error("uploadPhotoFromLink error:", error);
+        throw error;
     }
 }
 
@@ -104,9 +109,14 @@ export async function uploadPhotoFromDevice(data) {
             body: data,
         });
 
+        if (!response.ok) {
+            throw new Error(`Upload failed: ${response.status} ${response.statusText}`);
+        }
+
         return response.json();
     } catch (error) {
-        console.log(error);
+        console.error("uploadPhotoFromDevice error:", error);
+        throw error;
     }
 }
 
@@ -142,9 +152,15 @@ export async function getUserPlaces() {
 export async function getPlace(id) {
     try {
         const response = await fetch(`${URL}/place/` + id);
-        return response;
+        
+        if (!response.ok) {
+            throw new Error(`Failed to fetch place: ${response.status}`);
+        }
+        
+        return response.json();
     } catch (error) {
-        console.log(error);
+        console.error("getPlace error:", error);
+        throw error;
     }
 }
 

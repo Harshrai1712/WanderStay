@@ -44,14 +44,21 @@ function Places() {
                             className="flex flex-col md:flex-row gap-4 mt-4 bg-gray-100 hover:shadow-md shadow-black transition duration-300 ease-in-out rounded-2xl p-4"
                         >
                             <div className="flex max-w-full h-46 md:max-w-[320px] md:h-44 bg-gray-300 shrink-0">
-                                <img
-                                    className="object-fill aspect-auto max-h-[320px] md:aspect-square md:w-64"
-                                    src={
-                                        URL_TO_UPLOADS +
-                                        place.photos[0]
-                                    }
-                                    alt=""
-                                />
+                                {place.photos && place.photos.length > 0 ? (
+                                    <img
+                                        className="object-fill aspect-auto max-h-[320px] md:aspect-square md:w-64"
+                                        src={URL_TO_UPLOADS + place.photos[0]}
+                                        alt={place.title}
+                                        onError={(e) => {
+                                            e.target.onerror = null;
+                                            e.target.src = 'https://via.placeholder.com/320x320?text=Image+Not+Found';
+                                        }}
+                                    />
+                                ) : (
+                                    <div className="flex items-center justify-center w-full h-full text-gray-500">
+                                        No Image
+                                    </div>
+                                )}
                             </div>
                             <div className="flex flex-col gap-3 grow-0 shrink max-h-44 overflow-hidden">
                                 <h2 className="font-semibold text-lg">

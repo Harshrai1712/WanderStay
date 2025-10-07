@@ -19,10 +19,14 @@ function PlacePage() {
     const { id } = useParams();
 
     async function getPlace() {
-        const response = await api.getPlace(id);
-        const result = await response.json();
-        setPlace(result);
-        setReady(true);
+        try {
+            const result = await api.getPlace(id);
+            setPlace(result);
+            setReady(true);
+        } catch (error) {
+            console.error('Error fetching place:', error);
+            setReady(true); // Still set ready to show error state
+        }
     }
 
     useEffect(() => {

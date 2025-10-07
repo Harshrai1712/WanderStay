@@ -10,37 +10,68 @@ function AddPlaces() {
     const [address, setAddress] = useState("");
     const [uploadPhotos, setUploadPhotos] = useState([]);
     const [description, setDescription] = useState("");
-    const [perks, setPerks] = useState("");
+    const [perks, setPerks] = useState([]);
     const [extraInfo, setExtraInfo] = useState("");
     const [checkIn, setCheckIn] = useState("");
     const [checkOut, setCheckout] = useState("");
     const [maxGuests, setMaxGuests] = useState("");
     const [price, setPrice] = useState("");
     const [isEmpty, setIsEmpty] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
     const { id } = useParams();
 
     async function getPlaceDetails() {
-        const response = await api.getPlace(id);
-        const data = await response.json();
-        setTitle(data.title);
-        setAddress(data.address);
-        setUploadPhotos(data.photos);
-        setDescription(data.description);
-        setPerks(data.perks);
-        setExtraInfo(data.extraInfo);
-        setCheckIn(data.checkIn);
-        setCheckout(data.checkOut);
-        setMaxGuests(data.maxGuests);
-        setPrice(data.price);
+        try {
+            console.log('Starting to fetch place details for ID:', id);
+            setLoading(true);
+            
+            // Add timeout to prevent infinite loading
+            const timeoutPromise = new Promise((_, reject) => 
+                setTimeout(() => reject(new Error('Request timeout')), 10000)
+            );
+            
+            const data = await Promise.race([
+                api.getPlace(id),
+                timeoutPromise
+            ]);
+            
+            console.log('Successfully fetched place data:', data);
+            
+            if (!data) {
+                throw new Error('No data received from server');
+            }
+            
+            setTitle(data.title || "");
+            setAddress(data.address || "");
+            setUploadPhotos(data.photos || []);
+            setDescription(data.description || "");
+            setPerks(data.perks || []);
+            setExtraInfo(data.extraInfo || "");
+            setCheckIn(data.checkIn || "");
+            setCheckout(data.checkOut || "");
+            setMaxGuests(data.maxGuests || "");
+            setPrice(data.price || "");
+            
+            console.log('Place details loaded successfully');
+        } catch (error) {
+            console.error('Error fetching place details:', error);
+            alert(`Failed to load place details: ${error.message}. Please check your connection and try again.`);
+            navigate('/account/places'); // Go back to places list on error
+        } finally {
+            console.log('Setting loading to false');
+            setLoading(false);
+        }
     }
 
     useEffect(() => {
         if (!id) {
+            console.log('No ID provided - creating new place');
             return;
         }
 
+        console.log('Loading place with ID:', id);
         getPlaceDetails();
     }, [id]);
 
@@ -127,6 +158,27 @@ function AddPlaces() {
             {inputDescription(description)}
         </>
     );
+
+    if (loading) {
+        return (
+            <div>
+                <AccountNav />
+                <div className="flex flex-col items-center justify-center mt-32">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+                    <span className="mt-4 text-gray-600">Loading place details...</span>
+                    <button 
+                        onClick={() => {
+                            console.log('User cancelled loading');
+                            navigate('/account/places');
+                        }}
+                        className="mt-4 text-primary underline"
+                    >
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div>

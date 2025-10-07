@@ -8,15 +8,10 @@ const router = require("./src/routes/places");
 const { default: mongoose } = require("mongoose");
 
 const PATH_TO_UPLOADS = path.join(__dirname, "/assets/uploads");
-
 const app = express();
 const port = process.env.PORT || 4000;
 
-app.use(express.json());
-app.use(cookieParser());
-app.use("/uploads", express.static(PATH_TO_UPLOADS));
-
-// ✅ Corrected & secure CORS configuration
+// ✅ MUST COME FIRST
 app.use(cors({
     origin: [
         'https://wanderstay-frontend-l8f6.onrender.com',
@@ -28,8 +23,13 @@ app.use(cors({
     credentials: true
 }));
 
-// ✅ Handle preflight CORS requests
+// ✅ VERY IMPORTANT - handle preflight CORS requests
 app.options('*', cors());
+
+// ✅ Then the rest
+app.use(express.json());
+app.use(cookieParser());
+app.use("/uploads", express.static(PATH_TO_UPLOADS));
 
 mongoose.connect(process.env.MONGO_URL)
     .then(() => console.log("Connected to MongoDB"))

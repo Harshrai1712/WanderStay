@@ -6,13 +6,15 @@ import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import UserPlaces from "./components/Places/UserPlaces";
 import AddPlaces from "./components/AddPlaces/AddPlaces";
-import UserContextProvider from "./context/userContext";
+import UserContextProvider from "./context/UserContext";
 import Home from "./components/Home/Home";
 import PlacePage from "./components/Places/PlacePage";
 import BookingPlces from "./components/Booking/BookingPlces";
 import BookedPlace from "./components/Booking/BookedPlace";
 
-axios.defaults.baseURL = "https://wanderstay-backend-ll12.onrender.com";
+axios.defaults.baseURL = process.env.NODE_ENV === "development" 
+    ? "http://localhost:4000" 
+    : "https://wanderstay-backend-ll12.onrender.com";
 axios.defaults.withCredentials = true;
 
 function App() {

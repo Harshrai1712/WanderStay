@@ -1,29 +1,30 @@
-import { createContext, useContext, useEffect, useState } from "react";
+// src/context/UserContext.jsx
+import { createContext, useEffect, useState } from "react";
 import * as api from "../api/requester";
 
 export const UserContext = createContext();
 
-export function UserContextProvider({ children }) {
-    const [user, setUser] = useState(null);
-    const [ready, setReady] = useState(false);
+export default function UserContextProvider({ children }) {
+  const [user, setUser] = useState(null);
+  const [ready, setReady] = useState(false);
 
-    async function getUserCredentials() {
-        const response = await api.getUser();
-        setUser(response);
-        setReady(true);
+  useEffect(() => {
+    if (!user) {
+      api.getUser()
+        .then((userData) => {
+          setUser(userData);
+          setReady(true);
+        })
+        .catch((error) => {
+          console.error("Failed to fetch user:", error);
+          setReady(true);
+        });
     }
+  }, []);
 
-    useEffect(() => {
-        if (!user) {
-            getUserCredentials();
-        }
-    }, []);
-
-    return (
-        <UserContext.Provider value={{ user, setUser, ready }}>
-            {children}
-        </UserContext.Provider>
-    );
+  return (
+    <UserContext.Provider value={{ user, setUser, ready }}>
+      {children}
+    </UserContext.Provider>
+  );
 }
-
-export default UserContextProvider;

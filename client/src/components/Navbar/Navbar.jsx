@@ -5,12 +5,12 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { FaRegUserCircle } from "react-icons/fa";
 import { BiSearchAlt2 } from "react-icons/bi";
 import { AiOutlineHome } from "react-icons/ai";
-import { UserContext } from "../../context/userContext";
+import { UserContext } from "../../context/UserContext";
 
 const URL_TO_UPLOADS = 
     process.env.NODE_ENV === "development"
-        ? "http://localhost:5001/uploads/"
-        : "https://WanderStay-clone-64cu.onrender.com/uploads/";
+        ? "http://localhost:4000/uploads/"
+        : "https://wanderstay-backend-ll12.onrender.com/uploads/";
 
 function Navbar() {
     const { user } = useContext(UserContext);

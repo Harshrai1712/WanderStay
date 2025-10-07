@@ -16,13 +16,20 @@ app.use(express.json());
 app.use(cookieParser());
 app.use("/uploads", express.static(PATH_TO_UPLOADS));
 
+// ✅ Corrected & secure CORS configuration
 app.use(cors({
     origin: [
-        'http://127.0.0.1:5173',
-        'https://wanderstay-frontend-l8f6.onrender.com'
+        'https://wanderstay-frontend-l8f6.onrender.com',
+        'http://localhost:5173',
+        'http://127.0.0.1:5173'
     ],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
 }));
+
+// ✅ Handle preflight CORS requests
+app.options('*', cors());
 
 mongoose.connect(process.env.MONGO_URL)
     .then(() => console.log("Connected to MongoDB"))
@@ -31,14 +38,12 @@ mongoose.connect(process.env.MONGO_URL)
 app.use("/", router);
 app.use(errorMiddleware);
 
+// ✅ Global error handler
 app.use((err, req, res, next) => {
     const statusCode = err.statusCode || 500;
     res.status(statusCode).json({
-        error: {
-            message: err.message || "Internal server error.",
-        },
+        error: { message: err.message || "Internal server error." },
     });
 });
 
-// ✅ Only this at the bottom (no duplicate const)
 app.listen(port, () => console.log(`Server is listening on port ${port}...`));

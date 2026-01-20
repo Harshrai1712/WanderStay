@@ -9,7 +9,7 @@ import * as api from '../../api/requester'
 
 const URL_TO_UPLOADS = 
     process.env.NODE_ENV === "development"
-        ? "http://localhost:4000/uploads/"
+        ? "http://localhost:5001/uploads/"
         : "https://wanderstay-backend-ll12.onrender.com/uploads/";
 
 function Account() {

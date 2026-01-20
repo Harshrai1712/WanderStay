@@ -17,9 +17,15 @@ app.use("/uploads", express.static(PATH_TO_UPLOADS));
 
 // CORS for localhost only
 app.use(cors({
-    origin: "http://127.0.0.1:5173",
-    credentials: true   
-}))
+    origin: [
+        'https://wanderstay-frontend-l8f6.onrender.com',
+        'http://localhost:5173',
+        'http://127.0.0.1:5173'
+    ],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
+}));
 
 mongoose.connect(process.env.MONGO_URL)
     .then(() => console.log("Connected to MongoDB"))

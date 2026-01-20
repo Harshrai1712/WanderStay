@@ -13,7 +13,7 @@ import BookingPlces from "./components/Booking/BookingPlces";
 import BookedPlace from "./components/Booking/BookedPlace";
 
 axios.defaults.baseURL = process.env.NODE_ENV === "development" 
-    ? "http://localhost:4000" 
+    ? "http://localhost:5001" 
     : "https://wanderstay-backend-ll12.onrender.com";
 axios.defaults.withCredentials = true;
 

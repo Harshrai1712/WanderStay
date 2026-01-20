@@ -11,7 +11,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 const URL_TO_UPLOADS =
     process.env.NODE_ENV === "development"
         ? "http://localhost:5001/uploads/"
-        : "https://WanderStay-clone-64cu.onrender.com/uploads/";
+        : "https://wanderstay-backend-ll12.onrender.com/uploads/";
 
 function BookingPlces() {
     const [bookings, setBookings] = useState([]);

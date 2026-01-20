@@ -18,7 +18,7 @@ app.use("/uploads", express.static(PATH_TO_UPLOADS));
 // CORS for localhost only
 app.use(cors({
     origin: [
-        'https://wanderstay-frontend-l8f6.onrender.com',
+        'https://wanderstay-9uho.onrender.com',
         'http://localhost:5173',
         'http://127.0.0.1:5173'
     ],

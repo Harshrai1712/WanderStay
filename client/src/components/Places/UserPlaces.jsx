@@ -6,7 +6,7 @@ import * as api from "../../api/requester";
 const URL_TO_UPLOADS =
     process.env.NODE_ENV === "development"
         ? "http://localhost:5001/uploads/"
-        : "https://WanderStay-clone-64cu.onrender.com/uploads/";
+        : "https://wanderstay-backend-ll12.onrender.com/uploads/";
 
 function Places() {
     const [places, setPlaces] = useState([]);

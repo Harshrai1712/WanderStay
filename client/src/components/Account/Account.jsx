@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AccountNav from "./AccountNav";
-import { UserContext } from "../../context/userContext";
+import { UserContext } from "../../context/UserContext";
 import ClipLoader from "react-spinners/ClipLoader";
 import { FaRegUserCircle } from "react-icons/fa";
 import { AiOutlineCloudUpload } from "react-icons/ai";
@@ -9,8 +9,8 @@ import * as api from '../../api/requester'
 
 const URL_TO_UPLOADS = 
     process.env.NODE_ENV === "development"
-        ? "http://localhost:5001/uploads/"
-        : "https://WanderStay-clone-64cu.onrender.com/uploads/";
+        ? "http://localhost:4000/uploads/"
+        : "https://wanderstay-backend-ll12.onrender.com/uploads/";
 
 function Account() {
     const { user, ready, setUser } = useContext(UserContext);
@@ -20,6 +20,7 @@ function Account() {
     // Debug: Log user data
     console.log('Account - User data:', user);
     console.log('Account - Profile photo:', user?.profilePhoto);
+    console.log('Account - Full URL:', user?.profilePhoto ? URL_TO_UPLOADS + user.profilePhoto : 'No photo');
 
     if (!ready) {
         return (

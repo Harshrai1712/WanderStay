@@ -8,7 +8,7 @@ import { BsMoon, BsCalendarDate } from "react-icons/bs";
 
 const URL_TO_UPLOADS =
     process.env.NODE_ENV === "development"
-        ? "http://localhost:5001/uploads/"
+        ? "http://localhost:4000/uploads/"
         : "https://WanderStay-clone-64cu.onrender.com/uploads/";
 
 function BookedPlace() {
